@@ -206,13 +206,13 @@ for a lite system), place an empty file named `SKIP` in each of the `./stage`
 directories you wish not to include.
 
 Then add an empty file named `SKIP_IMAGES` to `./stage3` (if building up to stage 2).
-In this case you should also add the `EXPORT_*` files to stage 2.
+In this case you should also remove `SKIP_IMAGES` from stage 2.
 
 ```bash
 # Example for building a lite system
+rm ./stage2/SKIP_IMAGES
 touch ./stage3/SKIP
 touch ./stage3/SKIP_IMAGES
-touch ./stage2/EXPORT_IMAGE ./stage2/EXPORT_NOOBS
 sudo ./build.sh  # or ./build-docker.sh
 ```
 
@@ -227,7 +227,7 @@ If you're working on a specific stage the recommended development process is as
 follows:
 
  * Add a file called `SKIP_IMAGES` into the directories containing `EXPORT_*` files
-   (currently stage3).
+   (currently stage 2 and stage 3).
  * Add `SKIP` files to the stages you don't want to build. For example, if you're
    basing your image on the lite image you would add these to stage 3.
  * Run `build.sh` to build all stages.
