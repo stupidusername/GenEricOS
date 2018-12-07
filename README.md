@@ -205,14 +205,14 @@ If you wish to build up to a specified stage (such as building up to stage 2
 for a lite system), place an empty file named `SKIP` in each of the `./stage`
 directories you wish not to include.
 
-Then add an empty file named `SKIP_IMAGES` to `./stage3` (if building up to stage 2) or
-to `./stage2` (if building a minimal system).
+Then add an empty file named `SKIP_IMAGES` to `./stage3` (if building up to stage 2).
+In this case you should also add the `EXPORT_*` files to stage 2.
 
 ```bash
 # Example for building a lite system
-echo "IMG_NAME='EricOS'" > config
 touch ./stage3/SKIP
 touch ./stage3/SKIP_IMAGES
+touch ./stage2/EXPORT_IMAGE ./stage2/EXPORT_NOOBS
 sudo ./build.sh  # or ./build-docker.sh
 ```
 
@@ -227,9 +227,9 @@ If you're working on a specific stage the recommended development process is as
 follows:
 
  * Add a file called `SKIP_IMAGES` into the directories containing `EXPORT_*` files
-   (currently stage2, stage3).
+   (currently stage3).
  * Add `SKIP` files to the stages you don't want to build. For example, if you're
-   basing your image on the lite image you would add these to stages 3.
+   basing your image on the lite image you would add these to stage 3.
  * Run `build.sh` to build all stages.
  * Add `SKIP` files to the earlier successfully built stages.
  * Modify the last stage.
