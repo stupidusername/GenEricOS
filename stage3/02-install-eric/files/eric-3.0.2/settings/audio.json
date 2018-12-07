@@ -1,0 +1,45 @@
+[
+	{
+		"type": "options",
+		"title": "Modo del reproductor de música",
+		"section": "audio",
+		"key": "music_player_mode",
+		"options": ["server", "client"]
+	},
+	{
+		"type": "string",
+		"title": "Dirección del reproductor de música (a conectarse)",
+		"section": "audio",
+		"key": "music_player_address"
+	},
+	{
+		"type": "numeric",
+		"title": "Puerto del reproductor de música",
+		"section": "audio",
+		"key": "music_player_port"
+	},
+	{
+		"type": "numeric",
+		"title": "Volumen intro",
+		"section": "audio",
+		"key": "intro_volume"
+	},
+	{
+		"type": "numeric",
+		"title": "Volumen de mensajes",
+		"section": "audio",
+		"key": "message_volume"
+	},
+	{
+		"type": "bool",
+		"title": "Bluetooth activado",
+		"section": "audio",
+		"key": "bt_enabled"
+	},
+	{
+		"type": "string",
+		"title": "Nombre del dispositivo Bluetooth",
+		"section": "audio",
+		"key": "bt_device_name"
+	}
+]

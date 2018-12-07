@@ -1,0 +1,61 @@
+#:import AsyncRecycleView uix.asyncrecycleview
+#:import Core containers.core.Core
+#:import dimens uix.dimens.dimens
+#:import SelectableBorderedButton uix.selectableborderedbutton
+#:import SelectableRecycleBoxLayout uix.selectablerecycleboxlayout
+#:import Window kivy.core.window.Window
+
+# Change tab header style.
+<Tab>:
+        bold: True
+        font_size: dimens.font_size_l
+        background_color: 0, 0, 0, 0
+        canvas.before:
+                Color:
+                        rgba: Core.theme().get_dark_accent_color() if self.state == 'normal' else Core.theme().get_accent_color()
+                Rectangle:
+                        pos: self.pos
+                        size: self.width, self.height * .1
+
+# Main widget for tab content.
+<TabContentLayout@BoxLayout>:
+        spacing: self.width * .03
+        padding: self.spacing, self.height * .01
+        canvas.before:
+                Color:
+                        rgba: Core.theme().get_background_color()
+                Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+# Change language of empty and loading indicators.
+<AsyncRecycleView>:
+        loading_text: 'Cargando...'
+        empty_text: 'No hay datos'
+
+# Widget used for selectable menus.
+<SelectableRecycleView@AsyncRecycleView>:
+        viewclass: 'SelectableBorderedButton'
+        SelectableRecycleBoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                default_size: 0, Window.height * .1
+                default_size_hint: 1, None
+                spacing: self.default_size[1] * .075
+
+# Hide scroll bars.
+<ScrollView>:
+        bar_color: 0, 0, 0, 0
+        bar_inactive_color: 0, 0, 0, 0
+
+# Label with ellipsis if the text is too long.
+<ShortenedLabel@Label>:
+        shorten: True
+        shorten_from: 'right'
+        text_size: self.width, None
+        halign: 'center'
+
+# Avoid gpu mem issues.
+<Image>:
+        nocache: True

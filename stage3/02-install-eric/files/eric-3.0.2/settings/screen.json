@@ -1,0 +1,26 @@
+[
+	{
+		"type": "numeric",
+		"title": "Brillo",
+		"section": "screen",
+		"key": "brightness"
+	},
+	{
+		"type": "numeric",
+		"title": "Brillo bajo",
+		"section": "screen",
+		"key": "dim_brightness"
+	},
+	{
+		"type": "numeric",
+		"title": "Tiempo de apagado",
+		"section": "screen",
+		"key": "off_time"
+	},
+	{
+		"type": "numeric",
+		"title": "Tiempo de brillo bajo",
+		"section": "screen",
+		"key": "dim_time"
+	}
+]

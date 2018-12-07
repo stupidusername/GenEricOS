@@ -1,0 +1,20 @@
+#:import BorderedButton uix.borderedbutton
+#:import Window kivy.core.window.Window
+
+<SceneControl>:
+        select_scene: select_scene
+        size_hint_y: None
+        height: Window.height * .15
+        padding: self.height * .1
+        spacing: self.width * .025
+        BorderedButton:
+                id: select_scene
+                size_hint_x: 2
+                text: 'Seleccionar escena'
+                on_release: root.open_dropdown()
+        BorderedButton:
+                text: 'Grabar'
+                on_release: root.record_scene()
+        BorderedButton:
+                text: 'Ocultar'
+                on_release: root.hide()

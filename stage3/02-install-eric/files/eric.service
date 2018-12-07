@@ -1,0 +1,6 @@
+[Unit]
+Description=Run Eric
+[Service]
+ExecStart=/bin/sh -c "sudo -H -u pi /home/pi/eric/main"
+[Install]
+WantedBy=multi-user.target

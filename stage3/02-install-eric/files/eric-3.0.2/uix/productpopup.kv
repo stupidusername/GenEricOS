@@ -1,0 +1,29 @@
+#:import Core containers.core
+#:import dimens uix.dimens.dimens
+
+<ProductPopup>:
+        description_label: description_label
+        size_hint_y: .75 if root.image else .5
+        RelativeLayout:
+                AsyncImage:
+                        source: root.image
+                        allow_stretch: True
+                        # Avoid showing a white square when no image is set.
+                        height: 0
+                ScrollView:
+                        size_hint_y: 1 if not root.image else None
+                        height: min(self.parent.height * .3, root.description_label.texture_size[1])
+                        canvas.before:
+                                Color:
+                                        rgba: Core.theme().get_transparent_gray()
+                                Rectangle:
+                                        pos: self.pos
+                                        size: self.size
+                        Label:
+                                id: description_label
+                                size_hint: 1, None
+                                padding: [self.font_size * .5] * 2
+                                text: root.description
+                                text_size: self.width, None
+                                size: self.texture_size
+                                font_size: dimens.font_size_m
