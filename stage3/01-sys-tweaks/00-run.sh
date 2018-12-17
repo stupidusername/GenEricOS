@@ -15,3 +15,8 @@ EOF
 
 # Change sound volume.
 install -v -m 644 files/asound.state "${ROOTFS_DIR}/var/lib/alsa/asound.state"
+
+# Fix for usbmount.
+on_chroot << \EOF
+sed -i '0,/MountFlags=slave/s//MountFlags=shared/' /lib/systemd/system/systemd-udevd.service
+EOF
