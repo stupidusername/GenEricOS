@@ -1,0 +1,29 @@
+#:import Core containers.core
+#:import LightsAC tabs.lightsac
+#:import Music tabs.music
+#:import TV tabs.tv
+
+FloatLayout:
+        tabbed_panel: tabbed_panel
+        # Set app background.
+        canvas.before:
+                Color:
+                        rgba: Core.theme().get_background_color()
+                Rectangle:
+                        pos: self.pos
+                        size: self.size
+        TabbedPanel:
+                id: tabbed_panel
+                do_default_tab: False
+                tab_width: self.width / len(self.tab_list)
+                tab_height: self.height * .1
+                # Create tabs.
+                Music:
+                TV:
+                LightsAC:
+        Button:
+                size_hint: .1, .1
+                pos_hint: {'right': 1}
+                background_color: 0, 0, 0, 0
+                on_press: app.on_hidden_button_press()
+                on_release: app.on_hidden_button_release()

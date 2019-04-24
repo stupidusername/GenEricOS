@@ -1,0 +1,22 @@
+#:import dimens uix.dimens.dimens
+#:import Window kivy.core.window
+
+<InfoRow>:
+        size_hint_y: None
+        height: Window.height * .125
+        BoxLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: self.width * .1
+                padding: self.width * .05, 0
+                Label:
+                        text: root.label
+                        size_hint_x: None
+                        size: self.texture_size
+                        font_size: dimens.font_size_m
+                        bold: root.bold
+                ShortenedLabel:
+                        text: root.value
+                        halign: 'right'
+                        font_size: dimens.font_size_m
+                        bold: root.bold

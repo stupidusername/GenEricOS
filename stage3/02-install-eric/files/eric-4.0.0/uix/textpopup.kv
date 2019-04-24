@@ -1,0 +1,14 @@
+#:import dimens uix.dimens.dimens
+
+<TextPopup>:
+        title: root.title
+        size_hint_y: .25
+        AnchorLayout:
+                ScrollView:
+                        size_hint: .9, .9
+                        Label:
+                                size_hint_y: None
+                                height: max(self.texture_size[1], self.parent.height)
+                                text_size: self.parent.width, None
+                                font_size: dimens.font_size_m
+                                text: root.text

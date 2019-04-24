@@ -1,0 +1,18 @@
+#:import dimens uix.dimens.dimens
+
+<BorderedButton>:
+        image: image
+        padding: self.height * .15
+        RelativeLayout:
+                AsyncImage:
+                        id: image
+                        size_hint_x: None
+                        width: self.height if root.source else 0
+                        source: root.source
+                        allow_stretch: True
+                ShortenedLabel:
+                        x: root.image.right + root.padding[0] if self.is_shortened and root.source else 0
+                        size_hint_x: None
+                        width: self.parent.width - self.x
+                        text: root.text
+                        font_size: dimens.font_size_l

@@ -1,0 +1,125 @@
+#:import BorderedBoxLayout uix.borderedboxlayout
+#:import BorderedButton uix.borderedbutton
+#:import ColoredButton uix.coloredbutton
+#:import dimens uix.dimens.dimens
+#:import RepeatButton uix.repeatbutton
+#:import SelectableBorderedButton uix.selectableborderedbutton
+
+<TV>:
+        text: 'TV'
+        rv_box_layout: rv_box_layout
+        categories_rv: categories_rv
+        channels_layout: channels_layout
+        channels_rv: channels_rv
+        plus_100_button: plus_100_button.__self__  # Keep the widget from being garbage collected.
+        TabContentLayout:
+                BoxLayout:
+                        id: rv_box_layout
+                        SelectableRecycleView:
+                                id: categories_rv
+                        BoxLayout:
+                                id: channels_layout
+                                orientation: 'vertical'
+                                spacing: root.channels_rv.layout_manager.spacing
+                                BorderedButton:
+                                        text: 'Volver'
+                                        source: 'images/back.png'
+                                        on_release: root.show_categories_rv()
+                                        size_hint: root.channels_rv.layout_manager.default_size_hint
+                                        size: root.channels_rv.layout_manager.default_size
+                                SelectableRecycleView:
+                                        id: channels_rv
+                AnchorLayout:
+                        BorderedBoxLayout:
+                                orientation: 'vertical'
+                                size_hint: None, None
+                                size: self.minimum_width, self.minimum_height
+                                spacing: min(self.parent.width, self.parent.height) * .1
+                                padding: self.spacing
+                                AnchorLayout:
+                                        size_hint_y: None
+                                        height: root.ids.power.height
+                                        ColoredButton:
+                                                id: power
+                                                on_release: root.power()
+                                                background: 'images/power.png'
+                                                size_preset: 'L'
+                                GridLayout:
+                                        cols: 2
+                                        size_hint: None, None
+                                        size: self.minimum_width, self.minimum_height
+                                        spacing: self.parent.spacing
+                                        RepeatButton:
+                                                on_repeat: root.vol_up()
+                                                background: 'images/plus.png'
+                                                size_preset: 'M'
+                                        RepeatButton:
+                                                on_repeat: root.ch_up()
+                                                background: 'images/up.png'
+                                                size_preset: 'M'
+                                        Label:
+                                                text: 'Vol'
+                                                font_size: dimens.font_size_l
+                                        Label:
+                                                text: 'Ch'
+                                                font_size: dimens.font_size_l
+                                        RepeatButton:
+                                                on_repeat: root.vol_down()
+                                                background: 'images/minus.png'
+                                                size_preset: 'M'
+                                        RepeatButton:
+                                                on_repeat: root.ch_down()
+                                                background: 'images/down.png'
+                                                size_preset: 'M'
+                                        ColoredButton:
+                                                on_release: root.mute()
+                                                background: 'images/volume_muted.png'
+                                                size_preset: 'M'
+                                        ColoredButton:
+                                                on_release: root.info()
+                                                text: 'INFO'
+                                                size_preset: 'M'
+                                                bold: True
+                                                font_size: dimens.font_size_l
+                AnchorLayout:
+                        GridLayout:
+                                size_hint: None, None
+                                width: min(self.parent.width, self.parent.height * 3 / 4.)
+                                height: min(self.parent.width * 4 / 3., self.parent.height)
+                                cols: 3
+                                spacing: self.width * .05
+                                BorderedButton:
+                                        text: '1'
+                                        on_release: root.digit(1)
+                                BorderedButton:
+                                        text: '2'
+                                        on_release: root.digit(2)
+                                BorderedButton:
+                                        text: '3'
+                                        on_release: root.digit(3)
+                                BorderedButton:
+                                        text: '4'
+                                        on_release: root.digit(4)
+                                BorderedButton:
+                                        text: '5'
+                                        on_release: root.digit(5)
+                                BorderedButton:
+                                        text: '6'
+                                        on_release: root.digit(6)
+                                BorderedButton:
+                                        text: '7'
+                                        on_release: root.digit(7)
+                                BorderedButton:
+                                        text: '8'
+                                        on_release: root.digit(8)
+                                BorderedButton:
+                                        text: '9'
+                                        on_release: root.digit(9)
+                                BoxLayout:
+                                BorderedButton:
+                                        text: '0'
+                                        on_release: root.digit(0)
+                                BorderedButton:
+                                        id: plus_100_button
+                                        text: '1--'
+                                        on_release: root.plus_100()

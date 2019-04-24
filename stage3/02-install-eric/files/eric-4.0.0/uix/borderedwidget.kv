@@ -1,0 +1,17 @@
+#:import Core containers.core.Core
+
+<BorderedWidget>:
+        canvas.before:
+                # Background.
+                Color:
+                        rgba: Core.theme().get_dark_accent_color() if self.active else Core.theme().get_background_color()
+                RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: self.radius,
+                # Border.
+                Color:
+                        rgba: Core.theme().get_accent_color() if self.active else Core.theme().get_dark_accent_color()
+                Line:
+                        width: self.border_width
+                        rounded_rectangle: self.x + self.border_width, self.y + self.border_width, self.width - self.border_width * 2, self.height - self.border_width * 2, self.radius

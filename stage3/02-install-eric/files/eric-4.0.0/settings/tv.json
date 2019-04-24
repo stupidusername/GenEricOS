@@ -1,0 +1,14 @@
+[
+	{
+		"type": "numeric",
+		"title": "Código del control",
+		"section": "tv",
+		"key": "remote_code"
+	},
+	{
+		"type": "bool",
+		"title": "Mostrar botón 1--",
+		"section": "tv",
+		"key": "show_plus_100"
+	}
+]

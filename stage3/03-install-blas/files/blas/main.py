@@ -60,13 +60,12 @@ def get_albumart():
 def get_audio_message():
     key = request.args.get('key')
     room = request.args.get('room')
-    suffix = request.args.get('suffix')
     if not key:
         abort(400)
     messages_path = get_folder('messages')
     audio_files = list_files(
         messages_path, ['aac', 'aiff', 'flac', 'm4a', 'mp3', 'ogg', 'wav'])
-    filename = '.'.join([value for value in [key, room, suffix] if value])
+    filename = '.'.join([value for value in [key, room] if value])
     file = None
     for audio_file in audio_files:
         if filename == os.path.splitext(audio_file)[0]:
@@ -78,8 +77,9 @@ def get_audio_message():
                 file = audio_file
                 break
     key = int(key)
-    url = urllib.unquote_plus(url_for(
-        'get_audio_message_file', file=file, _external=True)) if file else None
+    url = None
+    if file:
+        url = url_for('get_audio_message_file', file=file, _external=True)
     audio_message = {
         'id': key,
         'key': key,
@@ -179,7 +179,8 @@ def build_songs(category_id):
         path = category_path + '/' + audio_file
         file = category_folder + '/' + audio_file
         # harcoded urls are needed becaus url_for() it's too slow
-        song_url = request.url_root + 'get-song?file=' + file
+        song_url = request.url_root + 'get-song?file=' + \
+            urllib.quote(file.encode('utf8'))
         try:
             tags = read_tags(path)
             title = tags.find('title')
@@ -194,8 +195,8 @@ def build_songs(category_id):
         if albumart_mime:
             extension = albumart_mime.replace('image/', '')
             albumart_file = file + '.' + extension
-            albumart_url = \
-                request.url_root + 'get-albumart?file=' + albumart_file
+            albumart_url = request.url_root + 'get-albumart?file=' + \
+                urllib.quote(albumart_file.encode('utf8'))
         else:
             extension = None
             albumart_file = None
@@ -222,7 +223,7 @@ def build_channels(category_id):
     except IndexError:
         channel_files = []
     channels = []
-    regex = re.compile('^(\d+)\s-\s(.+)\.(.+)$')
+    regex = re.compile('^(\d+)\s*-\s*(.+)\.(.+)$')
     for idx, channel_file in enumerate(channel_files):
         match = regex.match(channel_file)
         if match:
@@ -231,8 +232,8 @@ def build_channels(category_id):
             if match.group(3).lower() in ['jpeg', 'jpg', 'png']:
                 logo = channel_file
                 logo_file = category_folder + '/' + channel_file
-                logo_url = \
-                    request.url_root + 'get-channel-logo?file=' + logo_file
+                logo_url = request.url_root + 'get-channel-logo?file=' + \
+                    urllib.quote(logo_file.encode('utf8'))
             else:
                 logo = None
                 logo_url = None
@@ -271,4 +272,7 @@ def get_albumart_data(tags):
                 data = value[0] if value else None
                 mimetype = 'image/' + imghdr.what(None, data)
                 break
+    # correct "image/jpg" mimetype
+    if mimetype == 'image/jpg':
+        mimetype = 'image/jpeg'
     return data, mimetype
